@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Gareths_Hat.unity
+    guid: aca5eeb8c5ddd9c46aea6aa29f76b844
+  - enabled: 1
+    path: Assets/Scenes/Gregorys_Umbrella.unity
+    guid: 1e63700c461a0ca4ab443bdeb575dbcb
+  m_configObjects: {}
