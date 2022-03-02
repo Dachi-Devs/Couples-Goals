@@ -12,11 +12,14 @@ public class PlayerController : MonoBehaviour
     private float xMovement;
 
     private Movement movement;
+    private Animator anim;
+
 
     private bool isCollided = false;
     private void Awake()
     {
         movement = GetComponent<Movement>();
+        anim = GetComponent<Animator>();
     }
 
     private void OnMove(InputValue value)
@@ -24,10 +27,10 @@ public class PlayerController : MonoBehaviour
         xMovement = value.Get<float>();
         if (xMovement == 0)
         {
-            GetComponent<Animator>().SetBool("IsRunning", false);
+            anim.SetBool("IsRunning", false);
         }
         else
-            GetComponent<Animator>().SetBool("IsRunning", true);
+            anim.SetBool("IsRunning", true);
     }
 
     private void OnJump()

@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
 
     private Transform sprites;
     private bool faceRight = true;
+    private bool isFlipping = false;
 
     void Awake()
     {
@@ -42,7 +43,15 @@ public class Movement : MonoBehaviour
     {
         rb2d.velocity = new Vector2(xMovement * moveSpeed, rb2d.velocity.y);
         CheckSprite();
-        //PlayAnimWhenMade
+    }
+
+    private void Update()
+    {
+        if (isFlipping)
+        {
+            float dir = faceRight ? 1f : -1f;
+            sprites.localScale = new Vector3(Mathf.Lerp(sprites.localScale.x, dir, Time.deltaTime * 15f), sprites.localScale.y);
+        }
     }
 
     public void SetMoveSpeed(float speed)
@@ -74,9 +83,6 @@ public class Movement : MonoBehaviour
     private void FlipSprite()
     {
         faceRight = !faceRight;
-        Vector3 scale = sprites.localScale;
-        scale.x *= -1;
-        sprites.localScale = scale;
+        isFlipping = true;
     }
-
 }
