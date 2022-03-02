@@ -7,7 +7,5 @@ public class ThoughtBubble : MonoBehaviour
     public void SetItemToDisplay(Objective item)
     {
         itemToDisplay.sprite = item.objectiveSprite;
-        itemToDisplay.color = item.spriteColour;
     }
-
 }

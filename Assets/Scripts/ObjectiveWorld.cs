@@ -6,7 +6,7 @@ public class ObjectiveWorld : MonoBehaviour
     private Objective obj;
 
     private bool isCollected = false;
-    // Start is called before the first frame update
+
     void Start()
     {
         Setup();
@@ -16,7 +16,6 @@ public class ObjectiveWorld : MonoBehaviour
     {
         SpriteRenderer spr = GetComponentInChildren<SpriteRenderer>();
         spr.sprite = obj.objectiveSprite;
-        spr.color = obj.spriteColour;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

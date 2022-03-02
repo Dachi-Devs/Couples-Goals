@@ -6,7 +6,7 @@ using UnityEngine;
 public class ItemRequest : MonoBehaviour
 {
     [SerializeField]
-    private Objective[] itemsToRequest;
+    private Objective itemToRequest;
 
     [SerializeField]
     private GameObject thoughtBubble;
@@ -22,27 +22,21 @@ public class ItemRequest : MonoBehaviour
 
     public event EventHandler OnFulfilled; 
 
-    public bool CheckItems()
+    public bool CheckItems(Objective it)
     {
-        foreach (Objective item in itemsToRequest)
+        if (!FindObjectOfType<GameManager>().hasObjective(it))
         {
-            if (!FindObjectOfType<GameManager>().hasObjective(item))
-            {
-                return false;
-            }
-
+            return false;
         }
+
         return true;
     }
 
     private void DisplayRequests()
     {
         bubble = Instantiate(thoughtBubble, thoughtPos);
-        foreach (Objective item in itemsToRequest)
-        {
-            bubble.GetComponent<ThoughtBubble>().SetItemToDisplay(item);
-            StartCoroutine(ItemDisplayTime(10f / itemsToRequest.Length));
-        }
+        bubble.GetComponent<ThoughtBubble>().SetItemToDisplay(itemToRequest);
+        StartCoroutine(ItemDisplayTime(10f));
     }
 
     public void HideRequests()
@@ -53,7 +47,7 @@ public class ItemRequest : MonoBehaviour
     private void RequestFulfilled()
     {
         Destroy(GetComponent<BoxCollider2D>());
-        item.GetComponent<ObjectiveWorld>().SetItem(itemsToRequest[0]);
+        item.GetComponent<ObjectiveWorld>().SetItem(itemToRequest);
         item.gameObject.SetActive(true);
         GetComponent<Animator>().SetTrigger("Fulfilled");
         OnFulfilled?.Invoke(this, EventArgs.Empty);
@@ -71,7 +65,7 @@ public class ItemRequest : MonoBehaviour
             if (!colliders.Contains(collision))
             {
                 colliders.Add(collision); 
-                if (CheckItems())
+                if (CheckItems(itemToRequest))
                 {
                     RequestFulfilled();
                     return;

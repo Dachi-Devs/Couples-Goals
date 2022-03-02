@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
             if (enemyColl != null)
             {
-                FindObjectOfType<GameManager>().KillUnit(enemyColl.transform.root.gameObject);
+                Destroy(enemyColl.transform.root.gameObject);
                 GetComponent<Jump>().DoJump(0.5f);
             }
             else

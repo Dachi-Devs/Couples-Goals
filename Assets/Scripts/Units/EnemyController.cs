@@ -33,6 +33,7 @@ public class EnemyController : MonoBehaviour
                 MoveToTarget();
                 break;
             case MovementType.direct:
+
                 break;
             case MovementType.flyingPatrol:
                 break;
@@ -54,5 +55,30 @@ public class EnemyController : MonoBehaviour
                 targetIndex++;
             movement.IdleMovement(2f);
         }
+    }
+
+    private void ClosestPlayer()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        Transform closestPlayer = players[0].transform;
+
+        float dist = Vector3.Distance(transform.position, closestPlayer.position);
+
+        foreach (GameObject p in players)
+        {
+            if (IsCloserThanOther(dist, p.transform))
+            {
+                closestPlayer = p.transform;
+                dist = Vector3.Distance(transform.position, closestPlayer.position);
+            }
+        }
+    }
+
+    private bool IsCloserThanOther(float distance, Transform other)
+    {
+        float otherDist = Vector3.Distance(transform.position, other.position);
+
+        return otherDist > distance;
     }
 }

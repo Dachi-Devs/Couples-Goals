@@ -5,5 +5,4 @@ public class Objective : ScriptableObject
 {
     public string objectiveName;
     public Sprite objectiveSprite;
-    public Color spriteColour;
 }

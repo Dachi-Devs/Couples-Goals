@@ -1,35 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
     private List<Objective> objectiveList;
 
     [SerializeField]
-    private Transform startPoint;
-
-    [SerializeField]
-    private Transform endPoint;
-
-    [SerializeField]
-    private GameObject endPortal;
+    private Transform respawnPoint;
 
     private void Awake()
     {
-        objectiveList = new List<Objective>();
-    }
-
-    private void Start()
-    {
-        Cursor.visible = false;
-        FindObjectOfType<ItemRequest>().OnFulfilled += ItemRequest_OnFulfilled;
-    }
-
-    private void ItemRequest_OnFulfilled(object sender, EventArgs e)
-    {
-        SpawnPortal();
+        objectiveList = new List<Objective>();        
+        //Cursor.visible = false;
     }
 
     public void AddObjective(Objective objective)
@@ -47,18 +29,8 @@ public class GameManager : MonoBehaviour
         return objectiveList.Contains(objective);
     }
 
-    public void KillUnit(GameObject objectToKill)
-    {
-        Destroy(objectToKill);
-    }
-
     public void RespawnPlayer(GameObject playerDead)
     {
-        playerDead.transform.position = startPoint.position;
-    }
-
-    private void SpawnPortal()
-    {
-        Instantiate(endPortal, endPoint.position, Quaternion.identity);
+        playerDead.transform.position = respawnPoint.position;
     }
 }
