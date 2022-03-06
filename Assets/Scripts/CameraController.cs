@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
 
 public class CameraController : MonoBehaviour
 {
@@ -10,6 +13,12 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private CamTargetMode targetMode;
 
+    [SerializeField]
+    private float maxDistance;
+
+    private bool isMaxDistance = false;
+    public static UnityEvent playersDistanceEvent;
+
     private Camera cam;
 
     public enum CamTargetMode
@@ -20,10 +29,17 @@ public class CameraController : MonoBehaviour
     }
 
     [SerializeField]
-    private Transform[] targetTransforms;
+    private List<Transform> targetTransforms = new List<Transform>();
+
+    private void Awake()
+    {
+        if (playersDistanceEvent == null)
+            playersDistanceEvent = new UnityEvent(); 
+    }
 
     void Start()
     {
+        GetPlayers();
         cam = Camera.main;
     }
 
@@ -57,16 +73,34 @@ public class CameraController : MonoBehaviour
             midpoint += transform.position;
         }
 
-        midpoint /= targetTransforms.Length;
+        midpoint /= targetTransforms.Count;
 
         return midpoint;
     }
 
+    private void GetPlayers()
+    {
+        targetTransforms.Clear();
+
+        foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            targetTransforms.Add(player.transform);
+        }
+    }
+
     private float CalculateSize()
     {
-        float distance = Vector3.Distance(transform.position, targetTransforms[0].position);
+        float distance = Mathf.Abs(transform.position.x - targetTransforms[0].position.x);
 
-        return distance * 0.65f;
+        if (distance > maxDistance)
+        {
+            if (!isMaxDistance)
+                StartCoroutine(PushbackDelay());
+        }
+
+        float size = Mathf.Clamp(distance + 2f, 6f, 12f);
+
+        return size;
     }
 
     private void FollowTarget()
@@ -74,5 +108,15 @@ public class CameraController : MonoBehaviour
             Vector3 camMove = Vector3.Lerp(transform.position, posToFollow, speed * Time.deltaTime);
 
             transform.position = new Vector3(camMove.x, camMove.y, -10f);
+    }
+
+    private IEnumerator PushbackDelay()
+    {
+        isMaxDistance = true;
+        playersDistanceEvent.Invoke();
+
+        yield return new WaitForSeconds(0.3f);
+
+        isMaxDistance = false;
     }
 }

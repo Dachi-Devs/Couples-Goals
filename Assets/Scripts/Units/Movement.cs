@@ -9,6 +9,12 @@ public class Movement : MonoBehaviour
     private float xMovement;
     private Rigidbody2D rb2d;
 
+    [SerializeField]
+    private float jumpForce = 1f;
+
+    [SerializeField]
+    private LayerMask floorLayer;
+
     private Transform sprites;
     private bool faceRight = true;
     private bool isFlipping = false;
@@ -26,27 +32,29 @@ public class Movement : MonoBehaviour
             Debug.Log("NO SPRITES FOUND");
     }
 
-    public void SetVelocity(float xMovement)
+    public void SetVelocity(float xMove)
     {
-        this.xMovement = xMovement;
+        xMovement = xMove;
     }
 
     public void SetVelocity(Vector3 target)
     {
-        if (target.x < transform.position.x)
-            xMovement = -1f;
-        else
-            xMovement = 1f;
+        xMovement = target.x < transform.position.x ? -1f : 1f;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        rb2d.velocity = new Vector2(xMovement * moveSpeed, rb2d.velocity.y);
-        CheckSprite();
+        rb2d.AddForce(new Vector2(xMovement * moveSpeed, 0f));
+
+        if (rb2d.velocity.y < 0)
+        {
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y / 4f;
+        }
     }
 
     private void Update()
     {
+        CheckSprite();
         if (isFlipping)
         {
             float dir = faceRight ? 1f : -1f;
@@ -84,5 +92,28 @@ public class Movement : MonoBehaviour
     {
         faceRight = !faceRight;
         isFlipping = true;
+    }
+
+    private bool IsGrounded()
+    {
+        CircleCollider2D feet = GetComponent<CircleCollider2D>();
+        Collider2D floorColl = Physics2D.OverlapBox(new Vector2(feet.bounds.center.x, feet.bounds.min.y), new Vector2(feet.bounds.size.x, -0.1f), 0f, floorLayer);
+        return floorColl != null;
+    }
+
+    public void DoJump()
+    {
+        if (IsGrounded())
+            rb2d.velocity += Vector2.up * jumpForce;
+    }
+
+    public void Bounce(float jumpMultiplier)
+    {
+        rb2d.velocity += Vector2.up * jumpForce * jumpMultiplier;
+    }
+
+    public void PushInDirection(Vector2 dir)
+    {
+        rb2d.velocity += dir * jumpForce;
     }
 }

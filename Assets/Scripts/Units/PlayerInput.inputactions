@@ -11,7 +11,8 @@
                     "id": "2ff62a83-edf4-4f97-b2e4-f8e09a95258d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Move",
@@ -19,7 +20,8 @@
                     "id": "6abe6d71-3775-442b-9d4e-ac90b18206b1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Debug",
@@ -27,7 +29,8 @@
                     "id": "3ceaad08-7511-4e43-8e69-70a296ee0099",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -79,7 +82,7 @@
                     "name": "",
                     "id": "a14b7ab9-9727-48b0-8791-f7901018bd48",
                     "path": "<Keyboard>/space",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Debug",
@@ -98,7 +101,8 @@
                     "id": "3a77cfdc-8043-46da-9fb5-1b69f00a22d4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Move",
@@ -106,7 +110,17 @@
                     "id": "6805ac7f-7c99-4b2f-baf7-dc72cc815e90",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Debug",
+                    "type": "Button",
+                    "id": "3571b6aa-ff17-4178-9237-370f2ac0692e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -153,6 +167,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "2fa140da-5531-42e8-bcee-84a12f950db1",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

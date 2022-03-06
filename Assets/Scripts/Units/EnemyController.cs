@@ -6,6 +6,8 @@ public class EnemyController : MonoBehaviour
     private Transform[] targets;
     private int targetIndex = 0;
 
+    private float range = 10f;
+
     private enum MovementType
     {
         patrol,
@@ -57,7 +59,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void ClosestPlayer()
+    private Transform ClosestPlayer()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
@@ -73,6 +75,8 @@ public class EnemyController : MonoBehaviour
                 dist = Vector3.Distance(transform.position, closestPlayer.position);
             }
         }
+
+        return closestPlayer;
     }
 
     private bool IsCloserThanOther(float distance, Transform other)

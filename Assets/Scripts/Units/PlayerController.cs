@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private LayerMask floorLayer;
-    [SerializeField]
     private LayerMask enemyLayer;
 
     private float xMovement;
@@ -22,6 +20,11 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        CameraController.playersDistanceEvent.AddListener(PushTowardsPlayer);
+    }
+
     private void OnMove(InputValue value)
     {
         xMovement = value.Get<float>();
@@ -31,24 +34,18 @@ public class PlayerController : MonoBehaviour
         }
         else
             anim.SetBool("IsRunning", true);
+
+        movement.SetVelocity(xMovement);
     }
 
     private void OnJump()
     {
-        if (IsGrounded())
-            GetComponent<Jump>().DoJump();
+        movement.DoJump();
     }
 
-    private void Update()
+    private void OnDebug()
     {
-        movement.SetVelocity(xMovement);
-    }
-
-    private bool IsGrounded()
-    {
-        CircleCollider2D feet = GetComponent<CircleCollider2D>();
-        Collider2D floorColl = Physics2D.OverlapBox(new Vector2(feet.bounds.center.x, feet.bounds.min.y), new Vector2(feet.bounds.size.x, -0.2f), 0f, floorLayer);
-        return floorColl != null;
+        PushTowardsPlayer();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -63,7 +60,7 @@ public class PlayerController : MonoBehaviour
             if (enemyColl != null)
             {
                 Destroy(enemyColl.transform.root.gameObject);
-                GetComponent<Jump>().DoJump(0.5f);
+                movement.Bounce(0.5f);
             }
             else
             {
@@ -78,5 +75,32 @@ public class PlayerController : MonoBehaviour
         isCollided = true;
         yield return new WaitForFixedUpdate();
         isCollided = false;
+    }
+
+    private void PushTowardsPlayer()
+    {
+        print("PUSH");
+        Transform targetPlayer = GetNextPlayer().transform;
+        Vector2 dir = targetPlayer.position - transform.position;
+        movement.PushInDirection(dir.normalized);
+    }
+
+    private GameObject GetNextPlayer()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        for(int i = 0; i < players.Length; i++)
+        {
+            if (players[i] == gameObject)
+            {
+                if (i + 1 < players.Length)
+                    return players[i + 1];
+
+                else
+                    return players[0];
+            }
+        }
+
+        return players[0];
     }
 }
