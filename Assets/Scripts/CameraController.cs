@@ -98,7 +98,7 @@ public class CameraController : MonoBehaviour
                 StartCoroutine(PushbackDelay());
         }
 
-        float size = Mathf.Clamp(distance + 2f, 6f, 12f);
+        float size = Mathf.Clamp(distance + 2f, 8f, 12f);
 
         return size;
     }

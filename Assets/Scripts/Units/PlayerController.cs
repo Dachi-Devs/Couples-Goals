@@ -43,6 +43,11 @@ public class PlayerController : MonoBehaviour
         movement.DoJump();
     }
 
+    private void OnFall()
+    {
+        movement.DoFall();
+    }
+
     private void OnDebug()
     {
         PushTowardsPlayer();

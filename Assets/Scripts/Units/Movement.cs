@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Movement : MonoBehaviour
 {
@@ -15,12 +15,19 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private LayerMask floorLayer;
 
+    public UnityEvent activeMovementEvent;
+
     private Transform sprites;
     private bool faceRight = true;
     private bool isFlipping = false;
+    private MovementState moveState = MovementState.active;
+
 
     void Awake()
     {
+        if (activeMovementEvent == null)
+            activeMovementEvent = new UnityEvent();
+
         rb2d = GetComponent<Rigidbody2D>();
         if (rb2d == null)
         {
@@ -44,11 +51,17 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb2d.AddForce(new Vector2(xMovement * moveSpeed, 0f));
-
-        if (rb2d.velocity.y < 0)
+        if (moveState == MovementState.active)
         {
-            rb2d.velocity += Vector2.up * Physics2D.gravity.y / 4f;
+            rb2d.AddForce(new Vector2(xMovement * moveSpeed, 0f));
+        }
+
+        if (moveState != MovementState.locked)
+        {
+            if (rb2d.velocity.y < 2f)
+            {
+                rb2d.velocity += Vector2.up * Physics2D.gravity.y / 3f;
+            }
         }
     }
 
@@ -103,8 +116,29 @@ public class Movement : MonoBehaviour
 
     public void DoJump()
     {
-        if (IsGrounded())
-            rb2d.velocity += Vector2.up * jumpForce;
+        switch (moveState)
+        {
+            case MovementState.active:
+                if (IsGrounded())
+                    rb2d.velocity += Vector2.up * jumpForce;
+                break;
+            case MovementState.locked:
+                moveState = MovementState.active;
+                activeMovementEvent.Invoke();
+                rb2d.velocity += Vector2.up * jumpForce;
+                break;
+            case MovementState.inactive:
+                break;
+        }
+    }
+
+    public void DoFall()
+    {
+        if (moveState == MovementState.locked)
+        {
+            moveState = MovementState.active;
+            activeMovementEvent.Invoke();
+        }
     }
 
     public void Bounce(float jumpMultiplier)
@@ -116,4 +150,16 @@ public class Movement : MonoBehaviour
     {
         rb2d.velocity += dir * jumpForce;
     }
+
+    public void SetMovementState(MovementState state)
+    {
+        moveState = state;
+    }
+}
+
+public enum MovementState
+{
+    active,
+    locked,
+    inactive
 }

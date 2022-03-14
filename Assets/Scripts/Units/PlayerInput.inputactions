@@ -15,21 +15,21 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Fall",
+                    "type": "Button",
+                    "id": "714e42e8-8248-45a1-85a7-6cbe6a3cb7a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Move",
                     "type": "Button",
                     "id": "6abe6d71-3775-442b-9d4e-ac90b18206b1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Debug",
-                    "type": "Button",
-                    "id": "3ceaad08-7511-4e43-8e69-70a296ee0099",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -40,7 +40,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -62,7 +62,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -73,19 +73,19 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "a14b7ab9-9727-48b0-8791-f7901018bd48",
-                    "path": "<Keyboard>/space",
+                    "id": "797f3c8d-eec9-41c6-8765-4fa6d29f6be8",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Debug",
+                    "groups": "KBM",
+                    "action": "Fall",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -105,21 +105,21 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Fall",
+                    "type": "Button",
+                    "id": "9da2ee2b-7c9c-4e6c-913e-66b4850922a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Move",
                     "type": "Button",
                     "id": "6805ac7f-7c99-4b2f-baf7-dc72cc815e90",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Debug",
-                    "type": "Button",
-                    "id": "3571b6aa-ff17-4178-9237-370f2ac0692e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -130,7 +130,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -152,7 +152,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -163,24 +163,36 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "2fa140da-5531-42e8-bcee-84a12f950db1",
-                    "path": "<Keyboard>/space",
+                    "id": "164ea611-33a7-41d3-8766-ebcdb68bd83c",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Debug",
+                    "groups": "KBM",
+                    "action": "Fall",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "KBM",
+            "bindingGroup": "KBM",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
