@@ -122,7 +122,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_TextureSettings.m_MipBias
-    value: -100
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_TextureSettings.m_WrapU
@@ -174,7 +174,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpritePixelsToUnits
-    value: 32
+    value: 16
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SpriteBorder.x
@@ -219,6 +219,14 @@ Preset:
   - target: {fileID: 0}
     propertyPath: m_SingleChannelComponent
     value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_FlipbookRows
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_FlipbookColumns
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_MaxTextureSizeSet
@@ -438,7 +446,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_PlatformSettings.Array.data[4].m_TextureCompression
-    value: 1
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_PlatformSettings.Array.data[4].m_CompressionQuality

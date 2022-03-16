@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        CameraController.playersDistanceEvent.AddListener(PushTowardsPlayer);
+        if (CameraController.playersDistanceEvent != null)
+            CameraController.playersDistanceEvent.AddListener(PushTowardsPlayer);
     }
 
     private void OnMove(InputValue value)
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                FindObjectOfType<GameManager>().RespawnPlayer(gameObject);
+                GameManager.instance.RespawnPlayer(gameObject);
             }
             StartCoroutine(pauseCollisions());
         }

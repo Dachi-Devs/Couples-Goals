@@ -11,6 +11,8 @@ public class Movement : MonoBehaviour
 
     [SerializeField]
     private float jumpForce = 1f;
+    private const float jumpMult = 10f;
+    private const float moveMult = 100f;
 
     [SerializeField]
     private LayerMask floorLayer;
@@ -53,14 +55,14 @@ public class Movement : MonoBehaviour
     {
         if (moveState == MovementState.active)
         {
-            rb2d.AddForce(new Vector2(xMovement * moveSpeed, 0f));
+            rb2d.AddForce(new Vector2(xMovement * moveSpeed * moveMult, 0f));
         }
 
         if (moveState != MovementState.locked)
         {
-            if (rb2d.velocity.y < 2f)
+            if (rb2d.velocity.y < 3f)
             {
-                rb2d.velocity += Vector2.up * Physics2D.gravity.y / 3f;
+                rb2d.velocity += Vector2.up * Physics2D.gravity.y;
             }
         }
     }
@@ -110,7 +112,7 @@ public class Movement : MonoBehaviour
     private bool IsGrounded()
     {
         CircleCollider2D feet = GetComponent<CircleCollider2D>();
-        Collider2D floorColl = Physics2D.OverlapBox(new Vector2(feet.bounds.center.x, feet.bounds.min.y), new Vector2(feet.bounds.size.x, -0.1f), 0f, floorLayer);
+        Collider2D floorColl = Physics2D.OverlapBox(new Vector2(feet.bounds.center.x, feet.bounds.min.y), new Vector2(feet.bounds.size.x, -0.2f), 0f, floorLayer);
         return floorColl != null;
     }
 
@@ -120,12 +122,12 @@ public class Movement : MonoBehaviour
         {
             case MovementState.active:
                 if (IsGrounded())
-                    rb2d.velocity += Vector2.up * jumpForce;
+                    rb2d.velocity += Vector2.up * jumpForce * jumpMult;
                 break;
             case MovementState.locked:
                 moveState = MovementState.active;
                 activeMovementEvent.Invoke();
-                rb2d.velocity += Vector2.up * jumpForce;
+                rb2d.velocity += Vector2.up * jumpForce * jumpMult;
                 break;
             case MovementState.inactive:
                 break;
@@ -143,12 +145,12 @@ public class Movement : MonoBehaviour
 
     public void Bounce(float jumpMultiplier)
     {
-        rb2d.velocity += Vector2.up * jumpForce * jumpMultiplier;
+        rb2d.velocity += Vector2.up * jumpForce * jumpMultiplier * jumpMult;
     }
 
     public void PushInDirection(Vector2 dir)
     {
-        rb2d.velocity += dir * jumpForce;
+        rb2d.velocity += dir * jumpForce * jumpMult;
     }
 
     public void SetMovementState(MovementState state)

@@ -85,4 +85,9 @@ public class EnemyController : MonoBehaviour
 
         return otherDist > distance;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
 }

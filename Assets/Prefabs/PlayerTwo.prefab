@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 773352259459381010}
   - component: {fileID: 773352259459381011}
   - component: {fileID: 7512832754587069765}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerTwo
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -390,11 +390,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad144aa91c35dd49b69e191a547d125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 250
-  jumpForce: 30
+  moveSpeed: 5
+  jumpForce: 8
   floorLayer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 257
+  activeMovementEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &773352259459381010
 Rigidbody2D:
   serializedVersion: 4
@@ -429,9 +432,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.125}
+  m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
-  m_Radius: 0.125
+  m_Radius: 0.5
 --- !u!95 &7512832754587069765
 Animator:
   serializedVersion: 3
@@ -462,7 +465,7 @@ GameObject:
   - component: {fileID: 773352259774325718}
   - component: {fileID: 773352259774325716}
   - component: {fileID: 773352259774325717}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,22 +546,22 @@ BoxCollider2D:
   m_GameObject: {fileID: 773352259774325719}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 7894dd750c08c7f4fa8a62555db74bca, type: 2}
+  m_Material: {fileID: 6200000, guid: c80b6b6b463a98746a42456d412c71f9, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0625}
+  m_Offset: {x: 0, y: 0.375}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 0.25, y: 0.125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.1875}
+  m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1 &773352260132059871
 GameObject:

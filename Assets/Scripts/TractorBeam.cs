@@ -15,18 +15,12 @@ public class TractorBeam : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.parent == null)
-        {
-            AddObject(collision.gameObject);
-        }
+        AddObject(collision.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.transform.parent == null)
-        {
-            RemoveObject(collision.gameObject);
-        }
+        RemoveObject(collision.gameObject);
     }
 
     private void AddObject(GameObject obj)
