@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
         //Cursor.visible = false;
     }
 
+    private void Start()
+    {
+        CheckpointManager.CheckpointUpdateEvent.AddListener(UpdateRespawnPoint);
+    }
+
     public void AddObjective(Objective objective)
     {
         objectiveList.Add(objective);
@@ -44,5 +49,14 @@ public class GameManager : MonoBehaviour
     public void RespawnPlayer(GameObject playerDead)
     {
         playerDead.transform.position = respawnPoint.position;
+    }
+
+    private void UpdateRespawnPoint(Checkpoint point)
+    {
+        if (respawnPoint != point.transform)
+        {
+            respawnPoint = point.transform;
+            point.PlayParticles();
+        }
     }
 }
