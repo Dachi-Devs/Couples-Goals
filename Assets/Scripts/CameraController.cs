@@ -65,15 +65,19 @@ public class CameraController : MonoBehaviour
         FollowTarget();
     }
 
-    private Vector3 CalculateMidpoint()
+    private Vector2 CalculateMidpoint()
     {
-        Vector3 midpoint = Vector3.zero;
+        Vector2 midpoint = Vector2.zero;
         foreach (Transform transform in targetTransforms)
         {
-            midpoint += transform.position;
+            midpoint += (Vector2)transform.position;
         }
 
         midpoint /= targetTransforms.Count;
+
+        Vector2 offset = new Vector2(0f, 5f);
+
+        midpoint += offset;
 
         return midpoint;
     }
@@ -90,7 +94,13 @@ public class CameraController : MonoBehaviour
 
     private float CalculateSize()
     {
-        float distance = Mathf.Abs(transform.position.x - targetTransforms[0].position.x);
+        float distanceX = Mathf.Abs(transform.position.x - targetTransforms[0].position.x);
+        float distanceY = Mathf.Abs(transform.position.y - targetTransforms[0].position.y);
+
+        float distance = distanceX;
+
+        if (distanceY > distanceX)
+            distance = distanceY * 16f / 9f;
 
         if (distance > maxDistance)
         {
@@ -98,7 +108,7 @@ public class CameraController : MonoBehaviour
                 StartCoroutine(PushbackDelay());
         }
 
-        float size = Mathf.Clamp(distance + 2f, 16f, 24f);
+        float size = Mathf.Clamp(distance * 0.8f, 24f, 40f);
 
         return size;
     }
@@ -115,7 +125,7 @@ public class CameraController : MonoBehaviour
         isMaxDistance = true;
         playersDistanceEvent.Invoke();
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
 
         isMaxDistance = false;
     }
